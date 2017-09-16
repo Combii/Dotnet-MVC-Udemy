@@ -7,6 +7,7 @@ namespace Dotnet_MVC_Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+                
         public ViewResult Index()
         {
             var customers = GetCustomers();

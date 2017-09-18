@@ -10,7 +10,7 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(CustomersList))]
-    [Migration("20170916160416_InitialCreate")]
+    [Migration("20170918114429_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,11 +24,40 @@ namespace DotnetMVCVidly.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("IsSubscribedToCustomer");
+
+                    b.Property<byte>("MemberShipTypeId");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("MemberShipTypeId");
+
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Dotnet_MVC_Vidly.Models.MembershipType", b =>
+                {
+                    b.Property<byte>("Id");
+
+                    b.Property<byte>("DiscountRate");
+
+                    b.Property<byte>("DurationInMonths");
+
+                    b.Property<short>("SignUpFee");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MembershipType");
+                });
+
+            modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Customer", b =>
+                {
+                    b.HasOne("Dotnet_MVC_Vidly.Models.MembershipType", "MembershipType")
+                        .WithMany()
+                        .HasForeignKey("MemberShipTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

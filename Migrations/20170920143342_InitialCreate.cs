@@ -28,9 +28,9 @@ namespace DotnetMVCVidly.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    IsSubscribedToCustomer = table.Column<bool>(type: "INTEGER", nullable: false),
+                    IsSubscribedToNewsletter = table.Column<bool>(type: "INTEGER", nullable: false),
                     MemberShipTypeId = table.Column<byte>(type: "INTEGER", nullable: false),
-                    Name = table.Column<string>(type: "TEXT", nullable: true)
+                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {

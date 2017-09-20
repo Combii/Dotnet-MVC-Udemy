@@ -10,7 +10,7 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(CustomersList))]
-    [Migration("20170918114429_InitialCreate")]
+    [Migration("20170920143342_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,11 +24,13 @@ namespace DotnetMVCVidly.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<bool>("IsSubscribedToCustomer");
+                    b.Property<bool>("IsSubscribedToNewsletter");
 
                     b.Property<byte>("MemberShipTypeId");
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.HasKey("Id");
 

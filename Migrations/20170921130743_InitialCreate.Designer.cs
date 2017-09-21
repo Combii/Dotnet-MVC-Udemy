@@ -10,9 +10,10 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(CustomersList))]
-    partial class CustomersListModelSnapshot : ModelSnapshot
+    [Migration("20170921130743_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,6 +46,10 @@ namespace DotnetMVCVidly.Migrations
                     b.Property<byte>("DiscountRate");
 
                     b.Property<byte>("DurationInMonths");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
                     b.Property<short>("SignUpFee");
 

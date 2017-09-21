@@ -15,6 +15,7 @@ namespace DotnetMVCVidly.Migrations
                     Id = table.Column<byte>(type: "INTEGER", nullable: false),
                     DiscountRate = table.Column<byte>(type: "INTEGER", nullable: false),
                     DurationInMonths = table.Column<byte>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     SignUpFee = table.Column<short>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

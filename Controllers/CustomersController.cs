@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Dotnet_MVC_Vidly.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_MVC_Vidly.Controllers
 {
@@ -22,7 +23,7 @@ namespace Dotnet_MVC_Vidly.Controllers
 
         public ViewResult Index()
         {
-            var customers = _context.Customers;
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
             return View(customers);
         }

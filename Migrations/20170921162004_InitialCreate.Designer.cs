@@ -5,14 +5,16 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(CustomersList))]
-    partial class CustomersListModelSnapshot : ModelSnapshot
+    [Migration("20170921162004_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,6 +24,8 @@ namespace DotnetMVCVidly.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime?>("Birthday");
 
                     b.Property<bool>("IsSubscribedToNewsletter");
 

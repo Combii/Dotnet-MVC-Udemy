@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dotnet_MVC_Vidly.Models
 {
@@ -11,6 +12,7 @@ namespace Dotnet_MVC_Vidly.Models
         public bool IsSubscribedToNewsletter { get; set; }
         public MembershipType MembershipType { get; set; }
         public byte MemberShipTypeId { get; set; }
+        public DateTime? Birthday { get; set; }    
     }
     
 }

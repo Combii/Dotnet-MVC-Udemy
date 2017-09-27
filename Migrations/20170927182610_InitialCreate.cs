@@ -9,7 +9,7 @@ namespace DotnetMVCVidly.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "MembershipType",
+                name: "MembershipTypes",
                 columns: table => new
                 {
                     Id = table.Column<byte>(type: "INTEGER", nullable: false),
@@ -20,7 +20,7 @@ namespace DotnetMVCVidly.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MembershipType", x => x.Id);
+                    table.PrimaryKey("PK_MembershipTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -55,9 +55,9 @@ namespace DotnetMVCVidly.Migrations
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Customers_MembershipType_MemberShipTypeId",
+                        name: "FK_Customers_MembershipTypes_MemberShipTypeId",
                         column: x => x.MemberShipTypeId,
-                        principalTable: "MembershipType",
+                        principalTable: "MembershipTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,7 +77,7 @@ namespace DotnetMVCVidly.Migrations
                 name: "Movies");
 
             migrationBuilder.DropTable(
-                name: "MembershipType");
+                name: "MembershipTypes");
         }
     }
 }

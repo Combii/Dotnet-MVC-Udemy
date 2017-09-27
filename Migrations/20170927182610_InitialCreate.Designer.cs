@@ -11,7 +11,7 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20170927125450_InitialCreate")]
+    [Migration("20170927182610_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -58,7 +58,7 @@ namespace DotnetMVCVidly.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MembershipType");
+                    b.ToTable("MembershipTypes");
                 });
 
             modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Movie", b =>

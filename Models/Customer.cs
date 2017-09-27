@@ -6,13 +6,29 @@ namespace Dotnet_MVC_Vidly.Models
     public class Customer
     {
         public int Id { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
+
         public bool IsSubscribedToNewsletter { get; set; }
+
+        public int MemberShipTypeId { get; set; }
+
+        [Display(Name = "Membership Type")]
         public MembershipType MembershipType { get; set; }
-        public byte MemberShipTypeId { get; set; }
-        public DateTime? Birthday { get; set; }    
+
+        [Display(Name = "Date of Birth")]
+        public DateTime? Birthday { get; set; }
+
+
+        public override string ToString()
+        {
+            var rString = "@Name: " + Name + "@IsSubscribedToNewsletter: " + IsSubscribedToNewsletter + 
+                   "@MemberShipTypeId: " + MemberShipTypeId + "@Birthday: " + Birthday;
+            return rString.Replace("@", Environment.NewLine);    
+        }
+
     }
-    
 }
+

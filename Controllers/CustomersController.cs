@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Dotnet_MVC_Vidly.Models;
+using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +32,22 @@ namespace Dotnet_MVC_Vidly.Controllers
 
         public ActionResult New()
         {
-            return View();
+            var membershipTypes = _context.MembershipTypes.ToList();
+
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes = membershipTypes
+            };
+            
+            return View(viewModel);
+        }
+        
+        [HttpPost]
+        public ActionResult Create(Customer customer)
+        {
+            _context.Customers.Add(customer);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Customers");
         }
 
         public ActionResult Details(int id)
@@ -41,11 +58,6 @@ namespace Dotnet_MVC_Vidly.Controllers
                 return NotFound();
 
             return View(customer);
-        }
-
-        public IActionResult Create()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

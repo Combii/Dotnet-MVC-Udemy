@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Dotnet_MVC_Vidly.Models;
 using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,14 @@ namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        
+        private ApplicationDbContext _context;
+
+        public MoviesController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
         public ViewResult Index()
         {
             var movies = GetMovies();
@@ -16,11 +25,17 @@ namespace Vidly.Controllers
 
         private IEnumerable<Movie> GetMovies()
         {
-            return new List<Movie>
-            {
-                new Movie {Id = 1, Name = "Shrek"},
-                new Movie {Id = 2, Name = "Wall-e"}
-            };
+             return _context.Movies.ToList();
+        }
+        
+        public ActionResult Details(int id)
+        {
+            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+
+            if (movie == null)
+                return NotFound();
+
+            return View(movie);
         }
 
         // GET: Movies/Random

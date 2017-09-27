@@ -8,11 +8,11 @@ namespace Dotnet_MVC_Vidly.Controllers
     public class CustomersController : Controller
     {
 
-        private CustomersList _context;
+        private ApplicationDbContext _context;
 
         public CustomersController()
         {
-            _context = new CustomersList();
+            _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)

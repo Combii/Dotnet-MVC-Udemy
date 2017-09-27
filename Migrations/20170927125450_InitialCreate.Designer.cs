@@ -10,8 +10,8 @@ using System;
 
 namespace DotnetMVCVidly.Migrations
 {
-    [DbContext(typeof(CustomersList))]
-    [Migration("20170921162004_InitialCreate")]
+    [DbContext(typeof(ApplicationDbContext))]
+    [Migration("20170927125450_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,28 @@ namespace DotnetMVCVidly.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MembershipType");
+                });
+
+            modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Movie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateAdded");
+
+                    b.Property<string>("Genre")
+                        .IsRequired();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<int>("NumberOfStock");
+
+                    b.Property<DateTime>("ReleaseDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Customer", b =>

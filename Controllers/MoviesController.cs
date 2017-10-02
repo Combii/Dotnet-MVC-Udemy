@@ -48,7 +48,7 @@ namespace Vidly.Controllers
                 return NotFound();
             }
 
-            var viewModel = new MovieFormViewModel()
+            var viewModel = new MovieFormViewModel
             {
                 Movie = movie,
                 Genres = _context.Genres.ToList()

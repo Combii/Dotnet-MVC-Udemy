@@ -11,7 +11,7 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171002170743_InitialCreate")]
+    [Migration("20171002192925_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,7 +29,7 @@ namespace DotnetMVCVidly.Migrations
 
                     b.Property<bool>("IsSubscribedToNewsletter");
 
-                    b.Property<byte?>("MembershipTypeId");
+                    b.Property<byte>("MembershipTypeId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -100,7 +100,8 @@ namespace DotnetMVCVidly.Migrations
                 {
                     b.HasOne("Dotnet_MVC_Vidly.Models.MembershipType", "MembershipType")
                         .WithMany()
-                        .HasForeignKey("MembershipTypeId");
+                        .HasForeignKey("MembershipTypeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Movie", b =>

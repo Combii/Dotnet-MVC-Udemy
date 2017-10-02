@@ -11,9 +11,10 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171002170743_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,7 +29,7 @@ namespace DotnetMVCVidly.Migrations
 
                     b.Property<bool>("IsSubscribedToNewsletter");
 
-                    b.Property<byte>("MemberShipTypeId");
+                    b.Property<byte?>("MembershipTypeId");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -36,9 +37,21 @@ namespace DotnetMVCVidly.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MemberShipTypeId");
+                    b.HasIndex("MembershipTypeId");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Genre", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("GenreName");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("Dotnet_MVC_Vidly.Models.MembershipType", b =>
@@ -67,8 +80,7 @@ namespace DotnetMVCVidly.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<string>("Genre")
-                        .IsRequired();
+                    b.Property<int>("GenreId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -79,6 +91,8 @@ namespace DotnetMVCVidly.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GenreId");
+
                     b.ToTable("Movies");
                 });
 
@@ -86,7 +100,14 @@ namespace DotnetMVCVidly.Migrations
                 {
                     b.HasOne("Dotnet_MVC_Vidly.Models.MembershipType", "MembershipType")
                         .WithMany()
-                        .HasForeignKey("MemberShipTypeId")
+                        .HasForeignKey("MembershipTypeId");
+                });
+
+            modelBuilder.Entity("Dotnet_MVC_Vidly.Models.Movie", b =>
+                {
+                    b.HasOne("Dotnet_MVC_Vidly.Models.Genre", "Genre")
+                        .WithMany()
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

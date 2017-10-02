@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Dotnet_MVC_Vidly.Models;
 using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,7 +10,7 @@ namespace Vidly.Controllers
     public class MoviesController : Controller
     {
         
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MoviesController()
         {
@@ -38,23 +39,32 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
-        // GET: Movies/Random
-        public ActionResult Random()
+        public IActionResult Edit(int id)
         {
-            var movie = new Movie {Name = "Shrek!"};
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "Customer 1"},
-                new Customer {Name = "Customer 2"}
-            };
+            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
 
-            var viewModel = new RandomMovieViewModel
+            if (movie == null)
+            {
+                return NotFound();
+            }
+
+            var viewModel = new MovieFormViewModel()
             {
                 Movie = movie,
-                Customers = customers
+                Genres = _context.Genres.ToList()
             };
 
-            return View(viewModel);
+            return View("MovieForm", viewModel);
+        }
+
+        public IActionResult Save()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IActionResult New()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

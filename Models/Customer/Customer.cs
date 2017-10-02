@@ -12,9 +12,7 @@ namespace Dotnet_MVC_Vidly.Models
         public string Name { get; set; }
 
         public bool IsSubscribedToNewsletter { get; set; }
-
-        public int MemberShipTypeId { get; set; }
-
+        
         [Display(Name = "Membership Type")]
         public MembershipType MembershipType { get; set; }
 
@@ -25,7 +23,7 @@ namespace Dotnet_MVC_Vidly.Models
         public override string ToString()
         {
             var rString = "@Name: " + Name + "@IsSubscribedToNewsletter: " + IsSubscribedToNewsletter + 
-                   "@MemberShipTypeId: " + MemberShipTypeId + "@Birthday: " + Birthday;
+                   "@MemberShipTypeId: " + MembershipType + "@Birthday: " + Birthday;
             return rString.Replace("@", Environment.NewLine);    
         }
 

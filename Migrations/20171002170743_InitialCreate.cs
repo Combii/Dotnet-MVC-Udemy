@@ -9,6 +9,19 @@ namespace DotnetMVCVidly.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Genres",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GenreName = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Genres", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MembershipTypes",
                 columns: table => new
                 {
@@ -30,7 +43,7 @@ namespace DotnetMVCVidly.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     DateAdded = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    Genre = table.Column<string>(type: "TEXT", nullable: false),
+                    GenreId = table.Column<int>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     NumberOfStock = table.Column<int>(type: "INTEGER", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -38,6 +51,12 @@ namespace DotnetMVCVidly.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Movies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Movies_Genres_GenreId",
+                        column: x => x.GenreId,
+                        principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -48,24 +67,29 @@ namespace DotnetMVCVidly.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Birthday = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsSubscribedToNewsletter = table.Column<bool>(type: "INTEGER", nullable: false),
-                    MemberShipTypeId = table.Column<byte>(type: "INTEGER", nullable: false),
+                    MembershipTypeId = table.Column<byte>(type: "INTEGER", nullable: true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Customers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Customers_MembershipTypes_MemberShipTypeId",
-                        column: x => x.MemberShipTypeId,
+                        name: "FK_Customers_MembershipTypes_MembershipTypeId",
+                        column: x => x.MembershipTypeId,
                         principalTable: "MembershipTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customers_MemberShipTypeId",
+                name: "IX_Customers_MembershipTypeId",
                 table: "Customers",
-                column: "MemberShipTypeId");
+                column: "MembershipTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Movies_GenreId",
+                table: "Movies",
+                column: "GenreId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -78,6 +102,9 @@ namespace DotnetMVCVidly.Migrations
 
             migrationBuilder.DropTable(
                 name: "MembershipTypes");
+
+            migrationBuilder.DropTable(
+                name: "Genres");
         }
     }
 }

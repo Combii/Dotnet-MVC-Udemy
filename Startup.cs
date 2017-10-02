@@ -42,7 +42,7 @@ namespace Dotnet_MVC_Vidly
             {
                 routes.MapRoute(
                     "default",
-                    "{controller=Home}/{action=Index}/{id?}");
+                    "{controller=Customers}/{action=Index}/{id?}");
             });
         }
     }

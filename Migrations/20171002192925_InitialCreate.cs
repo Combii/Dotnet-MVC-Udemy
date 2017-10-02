@@ -67,7 +67,7 @@ namespace DotnetMVCVidly.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Birthday = table.Column<DateTime>(type: "TEXT", nullable: true),
                     IsSubscribedToNewsletter = table.Column<bool>(type: "INTEGER", nullable: false),
-                    MembershipTypeId = table.Column<byte>(type: "INTEGER", nullable: true),
+                    MembershipTypeId = table.Column<byte>(type: "INTEGER", nullable: false),
                     Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
@@ -78,7 +78,7 @@ namespace DotnetMVCVidly.Migrations
                         column: x => x.MembershipTypeId,
                         principalTable: "MembershipTypes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

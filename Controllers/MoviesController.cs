@@ -65,7 +65,7 @@ namespace Vidly.Controllers
             if (movie.Id == 0)
             {
                 var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
-                movie.Genre = newGenre; //Fejl kan forekomme her
+                movie.Genre = newGenre;
                 _context.Movies.Add(movie);
             }
             else
@@ -77,7 +77,7 @@ namespace Vidly.Controllers
                 movieInDb.NumberOfStock = movie.NumberOfStock;
 
                 var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
-                movieInDb.Genre = newGenre; //Fejl kan forekomme her
+                movieInDb.Genre = newGenre;
             }
 
             _context.SaveChanges();

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using Dotnet_MVC_Vidly.Models;
 using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -68,6 +67,7 @@ namespace Vidly.Controllers
             
             if (movie.Id == 0)
             {
+                movie.DateAdded = DateTime.Now;
                 movie.Genre = newGenre;
                 _context.Movies.Add(movie);
             }
@@ -76,7 +76,6 @@ namespace Vidly.Controllers
                 var movieInDb = _context.Movies.Single(c => c.Id == movie.Id);
                 movieInDb.Name = movie.Name;
                 movieInDb.ReleaseDate = movie.ReleaseDate;
-                movieInDb.DateAdded = movie.DateAdded;
                 movieInDb.NumberOfStock = movie.NumberOfStock;
                 movieInDb.Genre = newGenre;
             }

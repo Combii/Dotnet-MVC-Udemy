@@ -11,9 +11,13 @@ namespace Dotnet_MVC_Vidly.Models
         public string Name { get; set; }
         
         public Genre Genre{ get; set; }
-                
+        
+        [Display (Name = "Release Date")]
         public DateTime ReleaseDate { get; set; }
+        
         public DateTime DateAdded { get; set; }
+        
+        [Display (Name = "Number in Stock")]
         public int NumberOfStock { get; set; }
     }
 }

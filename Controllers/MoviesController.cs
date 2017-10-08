@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Dotnet_MVC_Vidly.Models;
@@ -57,15 +58,37 @@ namespace Vidly.Controllers
 
             return View("MovieForm", viewModel);
         }
-
-        public IActionResult Save()
+        
+        [HttpPost]
+        public IActionResult Save(Movie movie)
         {
-            throw new System.NotImplementedException();
+            if (movie.Id == 0)
+                _context.Movies.Add(movie);
+            else
+            {
+                var movieInDb = _context.Movies.Single(c => c.Id == movie.Id);
+                movieInDb.Name = movie.Name;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.DateAdded = movie.DateAdded;
+                movieInDb.NumberOfStock = movie.NumberOfStock;
+                movieInDb.Genre = movie.Genre; //Fejl kan forekomme her
+            }
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
         }
 
         public IActionResult New()
         {
-            throw new System.NotImplementedException();
+            var genres = _context.Genres.ToList();
+
+            var viewModel = new MovieFormViewModel
+            {
+                Genres = genres
+            };
+            
+            return View("MovieForm", viewModel);
         }
     }
 }

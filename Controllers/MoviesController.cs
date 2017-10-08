@@ -63,7 +63,11 @@ namespace Vidly.Controllers
         public IActionResult Save(Movie movie)
         {
             if (movie.Id == 0)
+            {
+                var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
+                movie.Genre = newGenre; //Fejl kan forekomme her
                 _context.Movies.Add(movie);
+            }
             else
             {
                 var movieInDb = _context.Movies.Single(c => c.Id == movie.Id);
@@ -71,7 +75,9 @@ namespace Vidly.Controllers
                 movieInDb.ReleaseDate = movie.ReleaseDate;
                 movieInDb.DateAdded = movie.DateAdded;
                 movieInDb.NumberOfStock = movie.NumberOfStock;
-                movieInDb.Genre = movie.Genre; //Fejl kan forekomme her
+
+                var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
+                movieInDb.Genre = newGenre; //Fejl kan forekomme her
             }
 
             _context.SaveChanges();

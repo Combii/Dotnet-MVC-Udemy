@@ -79,7 +79,7 @@ namespace DotnetMVCVidly.Migrations
 
                     b.Property<DateTime>("DateAdded");
 
-                    b.Property<int>("GenreId");
+                    b.Property<int?>("GenreId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -107,8 +107,7 @@ namespace DotnetMVCVidly.Migrations
                 {
                     b.HasOne("Dotnet_MVC_Vidly.Models.Genre", "Genre")
                         .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GenreId");
                 });
 #pragma warning restore 612, 618
         }

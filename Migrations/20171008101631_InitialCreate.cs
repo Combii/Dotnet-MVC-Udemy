@@ -43,7 +43,7 @@ namespace DotnetMVCVidly.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     DateAdded = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    GenreId = table.Column<int>(type: "INTEGER", nullable: false),
+                    GenreId = table.Column<int>(type: "INTEGER", nullable: true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     NumberOfStock = table.Column<int>(type: "INTEGER", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: false)
@@ -56,7 +56,7 @@ namespace DotnetMVCVidly.Migrations
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(

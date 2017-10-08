@@ -62,9 +62,12 @@ namespace Vidly.Controllers
         [HttpPost]
         public IActionResult Save(Movie movie)
         {
+            
+            var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
+
+            
             if (movie.Id == 0)
             {
-                var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
                 movie.Genre = newGenre;
                 _context.Movies.Add(movie);
             }
@@ -75,8 +78,6 @@ namespace Vidly.Controllers
                 movieInDb.ReleaseDate = movie.ReleaseDate;
                 movieInDb.DateAdded = movie.DateAdded;
                 movieInDb.NumberOfStock = movie.NumberOfStock;
-
-                var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
                 movieInDb.Genre = newGenre;
             }
 

@@ -11,6 +11,7 @@ namespace Dotnet_MVC_Vidly.Models
         
         [Required]
         public Genre Genre{ get; set; }
+                
         public DateTime ReleaseDate { get; set; }
         public DateTime DateAdded { get; set; }
         public int NumberOfStock { get; set; }

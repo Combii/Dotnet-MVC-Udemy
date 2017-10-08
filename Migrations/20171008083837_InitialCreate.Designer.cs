@@ -11,7 +11,7 @@ using System;
 namespace DotnetMVCVidly.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171002192925_InitialCreate")]
+    [Migration("20171008083837_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

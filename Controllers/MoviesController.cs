@@ -4,6 +4,7 @@ using System.Net;
 using Dotnet_MVC_Vidly.Models;
 using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Vidly.Controllers
 {
@@ -26,7 +27,7 @@ namespace Vidly.Controllers
 
         private IEnumerable<Movie> GetMovies()
         {
-             return _context.Movies.ToList();
+             return _context.Movies.Include(c => c.Genre).ToList();
         }
         
         public ActionResult Details(int id)

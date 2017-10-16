@@ -34,6 +34,7 @@ namespace Dotnet_MVC_Vidly.Controllers
             //return StatusCode(200);
         }
         
+        [HttpGet("{id}")]
         public Movie GetMovie(int id)
         {
             return _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);

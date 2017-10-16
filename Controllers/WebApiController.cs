@@ -24,5 +24,21 @@ namespace Dotnet_MVC_Vidly.Controllers
         {
             return new OkObjectResult(_context.Movies.Include(c => c.Genre).ToList());
         }
+        
+        [HttpPost]
+        public IActionResult Post([FromBody] Movie movie)
+        {
+            /*_context.Add(movie);
+            _context.SaveChanges();*/
+            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+            //return StatusCode(200);
+        }
+        
+        public Movie GetMovie(int id)
+        {
+            return _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);
+        }
+        
+        
     }
 }

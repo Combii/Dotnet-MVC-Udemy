@@ -44,7 +44,7 @@ namespace Dotnet_MVC_Vidly.Controllers
         [HttpPost]
         public ActionResult Save(Customer customer)
         {  
-           /* //Goes in here because membershipId not setup correctly
+            //Goes in here because membershipId not setup correctly
             if (!ModelState.IsValid)
             {
                 var viewModel = new CustomerFormViewModel
@@ -54,7 +54,7 @@ namespace Dotnet_MVC_Vidly.Controllers
                 };
 
                 return View("CustomerForm", viewModel);
-            }        */    
+            }            
             
             if (customer.Id == 0)
                 _context.Customers.Add(customer);

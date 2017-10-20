@@ -35,6 +35,7 @@ namespace Dotnet_MVC_Vidly.Controllers
 
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
             
@@ -42,6 +43,7 @@ namespace Dotnet_MVC_Vidly.Controllers
         }
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {  
             //Goes in here because membershipId not setup correctly

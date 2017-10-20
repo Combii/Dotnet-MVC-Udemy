@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dotnet_MVC_Vidly.Models
 {

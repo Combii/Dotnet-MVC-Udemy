@@ -13,11 +13,13 @@ namespace Dotnet_MVC_Vidly.Models
         public Genre Genre{ get; set; }
         
         [Display (Name = "Release Date")]
-        public DateTime ReleaseDate { get; set; }
+        [Required]
+        public DateTime? ReleaseDate { get; set; }
         
         public DateTime DateAdded { get; set; }
         
         [Display (Name = "Number in Stock")]
-        public int NumberOfStock { get; set; }
+        [Required(ErrorMessage = "Number Required")]
+        public int? NumberOfStock { get; set; }
     }
 }

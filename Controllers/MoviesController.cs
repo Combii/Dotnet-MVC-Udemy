@@ -32,7 +32,7 @@ namespace Vidly.Controllers
         
         public ActionResult Details(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+            var movie = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);
 
             if (movie == null)
                 return NotFound();
@@ -60,10 +60,19 @@ namespace Vidly.Controllers
         
         [HttpPost]
         public IActionResult Save(Movie movie)
-        {
+        {            
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new MovieFormViewModel()
+                {
+                    Movie = movie,
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+            }
             
             var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
-
             
             if (movie.Id == 0)
             {

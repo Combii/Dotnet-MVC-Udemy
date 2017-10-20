@@ -19,7 +19,7 @@ namespace Dotnet_MVC_Vidly.Models
         public DateTime DateAdded { get; set; }
         
         [Display (Name = "Number in Stock")]
-        [Required(ErrorMessage = "Number Required")]
+        [Required]
         public int? NumberOfStock { get; set; }
     }
 }

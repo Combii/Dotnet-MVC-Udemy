@@ -68,7 +68,7 @@ namespace Dotnet_MVC_Vidly.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteMovie(int id)
         {
-            var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+            var movie = _context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id);
 
             if (movie == null) return StatusCode(400);
             
@@ -76,7 +76,7 @@ namespace Dotnet_MVC_Vidly.Controllers
             _context.SaveChanges();
             return Json(new
             {
-                Status="Delted successfully", 
+                Status="Deleted successfully", 
                 movie
             });
 

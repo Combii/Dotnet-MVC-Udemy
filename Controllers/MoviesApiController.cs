@@ -44,19 +44,32 @@ namespace Dotnet_MVC_Vidly.Controllers
             }
             else
             {
-                var movieInDb = _context.Movies.Single(c => c.Id == movie.Id);
-                movieInDb.Name = movie.Name;
-                movieInDb.ReleaseDate = movie.ReleaseDate;
-                movieInDb.NumberOfStock = movie.NumberOfStock;
-                movieInDb.Genre = newGenre;
-                //For return statement
-                movie.Genre = newGenre;
+                return StatusCode(400);
             }
 
             _context.SaveChanges();
             
             return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
             //return StatusCode(200);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateCustomer(int id,[FromBody] Movie movie)
+        {
+            var newGenre = _context.Genres.Single(c => c.Id == movie.Genre.Id);
+            var movieInDb = _context.Movies.Single(c => c.Id == id);
+            
+            movieInDb.Name = movie.Name;
+            movieInDb.ReleaseDate = movie.ReleaseDate;
+            movieInDb.NumberOfStock = movie.NumberOfStock;
+            movieInDb.Genre = newGenre;
+            
+            //For return statement
+            movie.Genre = newGenre;
+            
+            _context.SaveChanges();
+            
+            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
         }
         
         [HttpGet("{id}")]

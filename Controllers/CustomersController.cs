@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Dotnet_MVC_David.Data.Repositories;
 using Dotnet_MVC_Vidly.Models;
 using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -9,26 +10,24 @@ namespace Dotnet_MVC_Vidly.Controllers
     public class CustomersController : Controller
     {
 
-        private readonly ApplicationDbContext _context;
+        private readonly CustomerRepository customerRepository;
 
         public CustomersController()
         {
-            _context = new ApplicationDbContext();
+             customerRepository = new CustomerRepository(new ApplicationDbContext());
         }
-
+        /*
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
         }
-        
+        */
 
         public ViewResult Index()
         {
-            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
-
-            return View(customers);
+            return View(customerRepository.GetCustomers());
         }
-
+        /*
         public IActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
@@ -100,6 +99,6 @@ namespace Dotnet_MVC_Vidly.Controllers
             };
             
             return View("CustomerForm", viewModel);
-        }
+        }*/
     }
 }

@@ -36,7 +36,7 @@ namespace Dotnet_MVC_Vidly
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
+            app.UseStaticFiles(); // For the wwwroot folder
 
             app.UseMvc(routes =>
             {

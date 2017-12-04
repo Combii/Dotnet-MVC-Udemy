@@ -1,9 +1,7 @@
-﻿using System.Linq;
-using Dotnet_MVC_David.Data.Repositories;
+﻿using Dotnet_MVC_David.Data.Repositories;
 using Dotnet_MVC_Vidly.Models;
 using Dotnet_MVC_Vidly.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_MVC_Vidly.Controllers
 {

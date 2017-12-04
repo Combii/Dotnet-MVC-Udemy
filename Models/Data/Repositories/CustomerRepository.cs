@@ -59,7 +59,7 @@ namespace Dotnet_MVC_David.Data.Repositories
 
         public void UpdateCustomer(Customer customer)
         {
-            InsertCustomer(customer);
+            SaveCustomer(customer);
         }
 
 

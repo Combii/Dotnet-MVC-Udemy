@@ -46,19 +46,20 @@ namespace Dotnet_MVC_Vidly.Controllers
                 var viewModel = new CustomerFormViewModel
                 {
                     Customer = customer,
-                    MembershipTypes = customerRepository.GetMembershipTypes();
+                    MembershipTypes = customerRepository.GetMembershipTypes()
                 };
 
                 return View("CustomerForm", viewModel);
             }
-
-                       
+            
+            customerRepository.SaveCustomer(customer);
+ 
             return RedirectToAction("Index", "Customers");
         }
 
         public IActionResult Details(int id)
         {
-            var customer = _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id);
+            var customer = customerRepository.GetCustomerById(id);
 
             if (customer == null)
                 return NotFound();
@@ -69,7 +70,7 @@ namespace Dotnet_MVC_Vidly.Controllers
 
         public IActionResult Edit(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = customerRepository.GetCustomerById(id);
 
             if (customer == null)
             {
@@ -79,10 +80,10 @@ namespace Dotnet_MVC_Vidly.Controllers
             var viewModel = new CustomerFormViewModel
             {
                 Customer = customer,
-                MembershipTypes = _context.MembershipTypes.ToList()
+                MembershipTypes = customerRepository.GetMembershipTypes()
             };
             
             return View("CustomerForm", viewModel);
-        }*/
+        }
     }
 }

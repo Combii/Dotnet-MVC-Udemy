@@ -8,22 +8,22 @@ namespace Dotnet_MVC_Vidly.Controllers
     public class CustomersController : Controller
     {
 
-        private readonly CustomerRepository customerRepository;
+        private readonly CustomerRepository _customerRepository;
 
         public CustomersController()
         {
-             customerRepository = new CustomerRepository(new ApplicationDbContext());
+             _customerRepository = new CustomerRepository(new ApplicationDbContext());
         }
         
 
         public ViewResult Index()
         {
-            return View(customerRepository.GetCustomers());
+            return View(_customerRepository.GetCustomers());
         }
         
         public IActionResult New()
         {
-            var membershipTypes = customerRepository.GetMembershipTypes();
+            var membershipTypes = _customerRepository.GetMembershipTypes();
 
             var viewModel = new CustomerFormViewModel
             {
@@ -44,20 +44,20 @@ namespace Dotnet_MVC_Vidly.Controllers
                 var viewModel = new CustomerFormViewModel
                 {
                     Customer = customer,
-                    MembershipTypes = customerRepository.GetMembershipTypes()
+                    MembershipTypes = _customerRepository.GetMembershipTypes()
                 };
 
                 return View("CustomerForm", viewModel);
             }
             
-            customerRepository.SaveCustomer(customer);
+            _customerRepository.SaveCustomer(customer);
  
             return RedirectToAction("Index", "Customers");
         }
 
         public IActionResult Details(int id)
         {
-            var customer = customerRepository.GetCustomerById(id);
+            var customer = _customerRepository.GetCustomerById(id);
 
             if (customer == null)
                 return NotFound();
@@ -68,7 +68,7 @@ namespace Dotnet_MVC_Vidly.Controllers
 
         public IActionResult Edit(int id)
         {
-            var customer = customerRepository.GetCustomerById(id);
+            var customer = _customerRepository.GetCustomerById(id);
 
             if (customer == null)
             {
@@ -78,7 +78,7 @@ namespace Dotnet_MVC_Vidly.Controllers
             var viewModel = new CustomerFormViewModel
             {
                 Customer = customer,
-                MembershipTypes = customerRepository.GetMembershipTypes()
+                MembershipTypes = _customerRepository.GetMembershipTypes()
             };
             
             return View("CustomerForm", viewModel);

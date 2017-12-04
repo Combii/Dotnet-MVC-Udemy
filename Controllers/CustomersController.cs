@@ -16,21 +16,16 @@ namespace Dotnet_MVC_Vidly.Controllers
         {
              customerRepository = new CustomerRepository(new ApplicationDbContext());
         }
-        /*
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        }
-        */
+        
 
         public ViewResult Index()
         {
             return View(customerRepository.GetCustomers());
         }
-        /*
+        
         public IActionResult New()
         {
-            var membershipTypes = _context.MembershipTypes.ToList();
+            var membershipTypes = customerRepository.GetMembershipTypes();
 
             var viewModel = new CustomerFormViewModel
             {
@@ -44,31 +39,20 @@ namespace Dotnet_MVC_Vidly.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
-        {  
+        {
+
             if (!ModelState.IsValid)
             {
                 var viewModel = new CustomerFormViewModel
                 {
                     Customer = customer,
-                    MembershipTypes = _context.MembershipTypes.ToList()
+                    MembershipTypes = customerRepository.GetMembershipTypes();
                 };
 
                 return View("CustomerForm", viewModel);
             }
-            
-            if (customer.Id == 0)
-                _context.Customers.Add(customer);
-            else
-            {
-                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
-                customerInDb.Name = customer.Name;
-                customerInDb.Birthday = customer.Birthday;
-                customerInDb.MembershipTypeId = customer.MembershipTypeId;
-                customerInDb.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
-            }
 
-            _context.SaveChanges();
-
+                       
             return RedirectToAction("Index", "Customers");
         }
 

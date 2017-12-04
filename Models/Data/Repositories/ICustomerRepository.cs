@@ -9,8 +9,8 @@ namespace Dotnet_MVC_David.Data.Repositories
     public interface ICustomerRepository
     {
         IEnumerable<Customer> GetCustomers();
-        Customer GetCustomerById(int customerId);
-        void InsertCustomer(Customer customer);
+        IEnumerable<MembershipType> GetMembershipTypes();
+        void SaveCustomer(Customer customer);
         Customer DeleteCustomer(int customerId);
         void UpdateCustomer(Customer customer);
        

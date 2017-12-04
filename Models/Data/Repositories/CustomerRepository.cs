@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Dotnet_MVC_David.Data.Repositories
 {
-    public class CustomerRepository : ICustomerRepository
+    public class CustomerRepository : ICustomerRepository, IDisposable
     {
 
         private ApplicationDbContext _context;
@@ -22,12 +22,17 @@ namespace Dotnet_MVC_David.Data.Repositories
             return _context.Customers.Include(c => c.MembershipType).ToList();
         }
 
+        public IEnumerable<MembershipType> GetMembershipTypes()
+        {
+            return _context.MembershipTypes.ToList();
+        }
+
         public Customer GetCustomerById(int customerId)
         {
             return _context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == customerId);
         }
 
-        public void InsertCustomer(Customer customer)
+        public void SaveCustomer(Customer customer)
         {
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
@@ -57,6 +62,10 @@ namespace Dotnet_MVC_David.Data.Repositories
             InsertCustomer(customer);
         }
 
-        
+
+        public void Dispose()
+        {
+            _context.Dispose();
+        }
     }
 }
